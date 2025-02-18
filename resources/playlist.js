@@ -1,7 +1,7 @@
 const playlist = [
   {
     title: "48",
-    file: "resources/audio_5.mp3", 
+    file: "resources/Audio_5.mp3", 
     artist: "RELLY GUNZ X SG",
   },
 ];
