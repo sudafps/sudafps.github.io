@@ -39,7 +39,7 @@
 
     <div id="center">
 
-    <label for="overlay-toggle" onclick="playSong(currentSongIndex); mediaPlay();">
+    <label for="overlay-toggle" onclick="playSong(currentSongIndex); mediaPlay(); document.getElementById('audio').play();">
 
         <span class="no-hover" style="font-family: 'Roboto Mono', monospace; font-size: 30px; font-size: 0.6em; text-shadow: 0 0 0.40em gray;">[ tap ]</span>
 
@@ -58,7 +58,7 @@
 
     </div>
 
-    <audio id="audio" autoplay>
+    <audio id="audio">
 
     </audio>
 
