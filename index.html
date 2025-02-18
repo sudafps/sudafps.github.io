@@ -1,81 +1,47 @@
 <head>
-
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <meta content="🔗" property="og:title"/>
-
     <meta content="/embed.png" property ="og:image"/>
-
     <meta content="#000001" data-react-helmet="true" name="theme-color"/>
-
     <meta name="description" content="suda suda suda suda suda suda suda suda suda">
-
     <meta name="keywords" content="suda, sudalol, hoodsense, zapped script, prime script, shhhh streamable, shhhh exploit, shhhh executor, shhhh external, shhhh.lol"/>
-
-        
-
+    
     <link rel="stylesheet" href="resources/main.css">
-
     <link rel="stylesheet" href="resources/hover.css">
-
     <link rel="stylesheet" href="resources/all.css"/>
-
     <link rel="icon" type="image/x-icon" href="resources/embed.png">
-
 </head>
-<body oncontextmenu="false">
-
+<body>
     <input type="checkbox" autocomplete="off" id="overlay-toggle">
-
     <div class="overlay fullscreen">
-
-    <div id="center">
-
-    <label for="overlay-toggle" onclick="playSong(currentSongIndex); mediaPlay(); document.getElementById('audio').play();">
-
-        <span class="no-hover" style="font-family: 'Roboto Mono', monospace; font-size: 30px; font-size: 0.6em; text-shadow: 0 0 0.40em gray;">[ tap ]</span>
-
-        <span class="hover" style="font-family: 'Roboto Mono', monospace; font-size: 30px; font-size: 0.6em; text-shadow: 0 0 0.40em gray;">[ click ]</span>
-
-
-    </label>
-
-    </div>
-
+        <div id="center">
+            <label for="overlay-toggle" onclick="startEverything()">
+                <span class="no-hover" style="font-family: 'Roboto Mono', monospace; font-size: 30px; font-size: 0.6em; text-shadow: 0 0 0.40em gray;">[ tap ]</span>
+                <span class="hover" style="font-family: 'Roboto Mono', monospace; font-size: 30px; font-size: 0.6em; text-shadow: 0 0 0.40em gray;">[ click ]</span>
+            </label>
+        </div>
     </div>
 
     <div id="notification" class="hide">
-
         <div class="content" id="notification-content"></div>
-
     </div>
 
-    <audio id="audio">
+    <audio id="audio" preload="auto"></audio>
 
-    </audio>
-
-    <video loop muted autoplay playsinline auto preload="auto" class="fullscreen bg-video" id="video">
+    <video loop muted playsinline preload="auto" class="fullscreen bg-video" id="video">
         <source src="resources/background.mp4" type="video/mp4">
-      </video>
+    </video>
 
     <section class="fullscreen text-content">
-
         <div id="center">
-
             <h1 style="font-size: 45px; font-family: Work Sans, sans-serif; text-shadow: 0 0 0.15em gray;">suda</h1>                                                                                         
-
         </div>
 
         <div id="center">
-
             <br><br><br>
             <i class="fa-solid fa-cannabis" style="font-size:9px; text-shadow: 0 0 0.15em gray;"></i>
             <i class="fa-solid fa-cross" style="font-size:9px; text-shadow: 0 0 0.15em gray;"></i>
@@ -83,30 +49,21 @@
         </div>
 
         <div id="center">
-
             <br><br><br><br><br>
-
             <span id="typed" style="font-size: 15px; font-family: 'Roboto Mono', monospace; text-shadow: 0 0 0.15em gray;"></span>
-
         </div> 
 
         <div id="center">
-
             <br><br><br><br><br><br><br><br>
-
             <h1 id="audio-info" style="font-size: 10px; font-family: 'Roboto Mono', monospace; text-shadow: 0 0 0.15em gray;">Artist - Title</h1>
-
         </div>
 
         <div id="center">
-
-		    <br><br><br><br><br><br><br><br><br><br><br>
-
+            <br><br><br><br><br><br><br><br><br><br><br>
             <h1 id="audio-time" style="font-size: 9px; font-family: 'Roboto Mono', monospace; text-shadow: 0 0 0.15em gray;">*-–––––––––––––––––––––––––– 00:00</h1>
-
         </div>
-
 </body>
+
 <style>
 .volume-control {
     position: fixed;
@@ -155,31 +112,50 @@
 </style>
 
 <div class="volume-control">
-    <input type="range" min="0" max="100" value="100" class="volume-slider" id="volumeControl" 
+    <input type="range" min="0" max="100" value="30" class="volume-slider" id="volumeControl" 
         oninput="document.getElementById('audio').volume = this.value/100">
 </div>	
 
+<script>
+function startEverything() {
+    // Create a user interaction context
+    const context = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Resume audio context
+    if (context.state === 'suspended') {
+        context.resume();
+    }
+    
+    const audio = document.getElementById('audio');
+    const video = document.getElementById('video');
+    
+    // Set initial volume
+    audio.volume = 0.3;
+    
+    // Play both audio and video
+    Promise.all([
+        audio.play().catch(e => console.error("Audio play failed:", e)),
+        video.play().catch(e => console.error("Video play failed:", e))
+    ]).then(() => {
+        playSong(currentSongIndex);
+        mediaPlay();
+    }).catch(error => {
+        console.error("Media playback failed:", error);
+    });
+}
+</script>
 
 <script src="resources/typed.min.js"></script>
-
 <script src="resources/jquery.min.js"></script>
-
 <script src="resources/main.js"></script>
-
 <script src="resources/protect.js"></script>
-
-<script src ="resources/playlist.js"></script>
-
-<script src ="resources/notification.js"></script>
-
-<script src ="resources/duration.js"></script>
-
-<script src ="resources/hover.js"></script>
+<script src="resources/playlist.js"></script>
+<script src="resources/notification.js"></script>
+<script src="resources/duration.js"></script>
+<script src="resources/hover.js"></script>
 
 <div id="center">
-
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
     <a href="https://www.instagram.com/yo_its_suda/" class="hover-text" data-hover-text="@yo_its_suda">
         <i class="fa-brands fa-instagram" style="font-size:36px; text-shadow: 0 0 0.15em #8134AF; color: #DD2A7B;"></i>
     </a>
@@ -192,7 +168,6 @@
     <a href="https://www.twitch.tv/sudafps2" class="hover-text" data-hover-text="@sudafps2">
         <i class="fa-brands fa-twitch" style="font-size:36px; text-shadow: 0 0 0.15em hsl#6441a5; color: #6441a5;"></i>
     </a>
-
 </div>
 
 </html>
