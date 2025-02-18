@@ -43,5 +43,5 @@
     setClipboard
   });
 
-  console.log('youtube.com by grek#0001');
+  console.log('https://www.youtube.com/@xdsuda by sudafps on discord');
 })();
