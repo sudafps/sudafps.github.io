@@ -30,104 +30,8 @@
 
     <link rel="icon" type="image/x-icon" href="resources/embed.png">
 
-    <style>
-        body {
-            background: #000;
-            overflow: hidden;
-        }
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #fff;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-        @keyframes twinkle {
-            0% { opacity: 0.2; }
-            50% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-        .volume-control {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(128, 128, 128, 0.2);
-            backdrop-filter: blur(5px);
-        }
-        .volume-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 120px;
-            height: 4px;
-            background: linear-gradient(90deg, rgba(128, 128, 128, 0.8) 0%, rgba(128, 128, 128, 0.2) 100%);
-            outline: none;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-        .volume-slider:hover {
-            opacity: 1;
-            transform: scale(1.02);
-        }
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 12px;
-            height: 12px;
-            background: #fff;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
-        }
-        .volume-slider::-webkit-slider-thumb:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            transform: scale(1.1);
-        }
-        .volume-slider:active::-webkit-slider-thumb {
-            transform: scale(0.95);
-        }
-    </style>
-
 </head>
 <body oncontextmenu="false">
-    <div class="stars"></div>
-    <script>
-        function createStars() {
-            const stars = document.querySelector('.stars');
-            for(let i = 0; i < 200; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDuration = `${2 + Math.random() * 2}s`;
-                star.style.animationDelay = `${Math.random() * 3}s`;
-                const size = 1 + Math.random() * 2;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                stars.appendChild(star);
-            }
-        }
-        createStars();
-    </script>
-
-    <div class="volume-control">
-        <input type="range" min="0" max="100" value="100" class="volume-slider" id="volumeControl" 
-            oninput="document.getElementById('audio').volume = this.value/100">
-    </div>
 
     <input type="checkbox" autocomplete="off" id="overlay-toggle">
 
@@ -154,9 +58,13 @@
 
     </div>
 
-    <audio id="audio" >
+    <audio id="audio" autoplay>
 
     </audio>
+
+    <video loop muted autoplay playsinline auto preload="auto" class="fullscreen bg-video" id="video">
+        <source src="resources/background.mp4" type="video/mp4">
+      </video>
 
     <section class="fullscreen text-content">
 
@@ -200,6 +108,10 @@
 
 </body>
 
+<div class="volume-control">
+    <input type="range" min="0" max="100" value="100" class="volume-slider" id="volumeControl" 
+        oninput="document.getElementById('audio').volume = this.value/100">
+</div>	
 
 
 <script src="resources/typed.min.js"></script>
