@@ -1,5 +1,10 @@
 const playlist = [
   {
+    title: "How to Bip",
+    file: "resources/HowToBip.mp3", 
+    artist: "Rockout Danny",
+  },
+  {
     title: "48",
     file: "resources/song.mp3", 
     artist: "RELLY GUNZ X SG",
