@@ -72,7 +72,7 @@
   
     <div id="center">
       <br><br><br><br><br>
-      <span id="typed" style="font-size: 15px; font-family: 'Roboto Mono', monospace; text-shadow: 0 0 0.15em gray;"></span>
+      <span id="quote" style="font-size: 15px; font-family: 'Roboto Mono', monospace; text-shadow: 0 0 0.15em gray;"></span>
     </div> 
   
     <div id="center">
@@ -85,6 +85,18 @@
       <h1 id="audio-time" style="font-size: 9px; font-family: 'Roboto Mono', monospace; text-shadow: 0 0 0.15em gray;">*-–––––––––––––––––––––––––– 00:00</h1>
     </div>
   </section>
+  <script>
+    const quotes = [
+      "When you find a good move, Find a better one.",
+      "Power is for those who take it.",
+      "You only lose when you give up on yourself.",
+      "Anyone can do it tommorow but only a select few can do it today.",
+      "Most would rather see you lose than win themselves."
+    ];
+    
+    document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('quote').style.fontSize = "10px"; // Set font size similar to the rest of the site
+  </script>
   
   <script>
     function startEverything() {
