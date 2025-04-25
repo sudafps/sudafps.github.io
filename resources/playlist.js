@@ -1,19 +1,14 @@
 const playlist = [
   {
-    title: "How to Bip",
-    file: "resources/HowToBip.mp3", 
-    artist: "Rockout Danny",
-  },
-  {
-    title: "48",
-    file: "resources/song.mp3", 
-    artist: "RELLY GUNZ X SG",
+    title: "Crank That",
+    file: "resources/songs/Crank_That.mp3", 
+    artist: "Soulja Boy",
   },
 ];
 
 const audio = document.getElementById("audio");
 const songTitle = document.getElementById("audio-info");
-let currentSongIndex = 0;
+let currentSongIndex = Math.floor(Math.random() * playlist.length);
 
 function playSong(index) {
   const song = playlist[index];
@@ -23,10 +18,13 @@ function playSong(index) {
 }
 
 audio.addEventListener("ended", () => {
-  currentSongIndex++;
-  if (currentSongIndex >= playlist.length) {
-    currentSongIndex = 0;
-  }
+  // Get a random index different from the current one
+  let newIndex;
+  do {
+    newIndex = Math.floor(Math.random() * playlist.length);
+  } while (newIndex === currentSongIndex && playlist.length > 1);
+  
+  currentSongIndex = newIndex;
   playSong(currentSongIndex);
 });
 
