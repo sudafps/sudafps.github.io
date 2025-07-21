@@ -1,8 +1,8 @@
 const playlist = [
   {
-    title: "Crank That",
-    file: "resources/songs/Crank_That.mp3", 
-    artist: "Soulja Boy",
+    title: "You",
+    file: "resources/songs/you.mp3", 
+    artist: "Jades",
   },
 ];
 
