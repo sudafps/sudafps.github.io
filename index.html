@@ -57,7 +57,7 @@
       <h1 id="audio-time" style="font-size:9px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;">*-–––––––––––––––––––––––––– 00:00</h1>
     </div>
   </section>
-  
+  <!--
   <script>
     // random quotes
     const quotes = [
@@ -71,59 +71,71 @@
     qEl.textContent = quotes[Math.floor(Math.random()*quotes.length)];
     qEl.style.fontSize = "10px";
   </script>
-  
+  -->
   <script>
-    // black & white audio visualizer
-    let audioCtx, analyser, dataArray, bufferLength, canvas, ctx;
-    function initVisualizer() {
-      canvas = document.getElementById('bgCanvas');
-      ctx = canvas.getContext('2d');
-      window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+  // 🌌 Twinkling + drifting stars background
+  let canvas, ctx, stars = [];
+  const STAR_COUNT = 250;
+
+  function initStars() {
+    canvas = document.getElementById('bgCanvas');
+    ctx = canvas.getContext('2d');
+    resizeCanvas();
+
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        alpha: Math.random(),
+        delta: 0.005 + Math.random() * 0.02,
+        speedX: (Math.random() - 0.5) * 0.05,
+        speedY: (Math.random() - 0.5) * 0.05
       });
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-      const audioEl = document.getElementById('audio');
-      const source = audioCtx.createMediaElementSource(audioEl);
-      analyser = audioCtx.createAnalyser();
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
-      analyser.fftSize = 256;
-      bufferLength = analyser.frequencyBinCount;
-      dataArray = new Uint8Array(bufferLength);
-      draw();
     }
-    function draw() {
-      requestAnimationFrame(draw);
-      analyser.getByteFrequencyData(dataArray);
-      // CLEAR the canvas each frame to prevent ghosting
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const barWidth = (canvas.width / bufferLength) * 1.2;
-      let x = (canvas.width - (barWidth * bufferLength)) / 2;
-      for (let i = 0; i < bufferLength; i++) {
-        const v = dataArray[i] / 255;               // 0 to 1
-        const barHeight = v * canvas.height * 0.6;
-        const alpha = 0.2 + v * 0.8;                // min to max
-        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 1;
-      }
+    animateStars();
+    window.addEventListener('resize', resizeCanvas);
+  }
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function animateStars() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let s of stars) {
+      s.alpha += s.delta;
+      if (s.alpha <= 0 || s.alpha >= 1) s.delta = -s.delta;
+
+      s.x += s.speedX;
+      s.y += s.speedY;
+
+      // wrap stars around edges
+      if (s.x < 0) s.x = canvas.width;
+      if (s.x > canvas.width) s.x = 0;
+      if (s.y < 0) s.y = canvas.height;
+      if (s.y > canvas.height) s.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+      ctx.fill();
     }
-    function startEverything() {
-      if (!audioCtx) initVisualizer();
-      else if (audioCtx.state==='suspended') audioCtx.resume();
-      const audio = document.getElementById('audio');
-      const video = document.getElementById('video');
-      audio.volume = 0.3;
-      const p = [ audio.play().catch(e=>console.error("Audio failed:",e)) ];
-      if (video) p.push(video.play().catch(e=>console.error("Video failed:",e)));
-      Promise.all(p)
-        .then(()=>{ playSong(currentSongIndex); mediaPlay(); })
-        .catch(e=>console.error("Playback failed:",e));
-    }
-  </script>
+    requestAnimationFrame(animateStars);
+  }
+
+  function startEverything() {
+    if (!canvas) initStars();
+    const audio = document.getElementById('audio');
+    audio.volume = 0.3;
+    audio.play().catch(e => console.error("Audio failed:", e));
+  }
+
+  window.onload = initStars;
+</script>
   
   <script src="resources/typed.min.js"></script>
   <script src="resources/jquery.min.js"></script>
