@@ -57,6 +57,7 @@
       <h1 id="audio-time" style="font-size:9px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;">*-–––––––––––––––––––––––––– 00:00</h1>
     </div>
   </section>
+  <!--
   <script>
   // 🌌 Twinkling + drifting stars background
   let canvas, ctx, stars = [];
@@ -121,7 +122,108 @@
 
   window.onload = initStars;
 </script>
-  
+-->
+<script>
+  // 🎄 Christmas-themed background: snow, candy canes, ornaments, and stars
+  let canvas, ctx, items = [];
+  const ITEM_COUNT = 200;
+  const IMAGES = {};
+
+  const ICONS = [
+    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f384.svg", type: "tree" },
+    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36c.svg", type: "candy" },
+    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f381.svg", type: "gift" },
+    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2b50.svg", type: "star" },
+    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2744.svg", type: "snow" }
+  ];
+
+  // Preload all images before animation starts
+  function preloadImages() {
+    return Promise.all(ICONS.map(icon => new Promise(resolve => {
+      const img = new Image();
+      img.src = icon.src;
+      img.onload = () => { IMAGES[icon.type] = img; resolve(); };
+    })));
+  }
+
+  function initChristmas() {
+    canvas = document.getElementById('bgCanvas');
+    ctx = canvas.getContext('2d');
+    resizeCanvas();
+
+    // Create random festive items
+    for (let i = 0; i < ITEM_COUNT; i++) {
+      const type = ICONS[Math.floor(Math.random() * ICONS.length)].type;
+      items.push({
+        type,
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: 15 + Math.random() * 25,
+        speedY: 0.3 + Math.random() * 1.5,
+        speedX: (Math.random() - 0.5) * 0.5,
+        angle: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.02,
+        alpha: 0.8 + Math.random() * 0.2
+      });
+    }
+
+    animateChristmas();
+    window.addEventListener('resize', resizeCanvas);
+  }
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function animateChristmas() {
+    // 🎅 Warm crimson background
+    ctx.fillStyle = "rgba(150, 10, 45, 0.5)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i of items) {
+      i.y += i.speedY;
+      i.x += i.speedX;
+      i.angle += i.rotationSpeed;
+
+      if (i.y > canvas.height + 40) i.y = -40;
+      if (i.x > canvas.width + 40) i.x = -40;
+      if (i.x < -40) i.x = canvas.width + 40;
+
+      ctx.save();
+      ctx.translate(i.x, i.y);
+      ctx.rotate(i.angle);
+      ctx.globalAlpha = i.alpha;
+
+      const img = IMAGES[i.type];
+      if (img) ctx.drawImage(img, -i.size / 2, -i.size / 2, i.size, i.size);
+      else {
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(0, 0, i.size / 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animateChristmas);
+  }
+
+  async function startEverything() {
+    await preloadImages();
+    if (!canvas) initChristmas();
+    const audio = document.getElementById('audio');
+    audio.volume = 0.3;
+    audio.play().catch(e => console.error("Audio failed:", e));
+  }
+
+  window.onload = async () => {
+    await preloadImages();
+    initChristmas();
+  };
+</script>
   <script src="resources/typed.min.js"></script>
   <script src="resources/jquery.min.js"></script>
   <script src="resources/main.js"></script>
@@ -150,10 +252,10 @@
       position:fixed;
       top:20px; left:20px;
       display:flex;
-      background:rgba(0,0,0,0.5);
+      background:rgba(228, 10, 45, 0.5);
       padding:10px;
       border-radius:10px;
-      border:1px solid rgba(128,128,128,0.2);
+      border:1px solid rgba(255, 255, 255, .5);
       backdrop-filter:blur(5px);
       z-index:100;
     }
@@ -201,7 +303,7 @@
       <i class="fa-brands fa-tiktok" style="font-size:36px;text-shadow:0 0 .15em #00f2ea;color:#fff;"></i>
     </a>
     <a href="https://www.youtube.com/@xdsuda" class="hover-text" data-hover-text="@xdsuda">
-      <i class="fa-brands fa-youtube" style="font-size:36px;text-shadow:0 0 .15em #ff0000;color:#ff0000;"></i>
+      <i class="fa-brands fa-youtube" style="font-size:36px;text-shadow:0 0 .15em #ff3e3e;color:#ff3e3e;"></i>
     </a>
     <a href="https://www.twitch.tv/sudafps2" class="hover-text" data-hover-text="@sudafps2">
       <i class="fa-brands fa-twitch" style="font-size:36px;text-shadow:0 0 .15em #6441a5;color:#6441a5;"></i>

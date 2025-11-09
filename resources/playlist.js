@@ -1,8 +1,8 @@
 const playlist = [
   {
-    title: "Flex",
-    file: "resources/songs/Flex.mp3", 
-    artist: "Cupid",
+    title: "It's Beginning to Look a Lot Like Christmas",
+    file: "resources/songs/itsbeginingtolookalotlikechristmas.mp3", 
+    artist: "Michael Bublé",
   },
 ];
 
