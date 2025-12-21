@@ -1,301 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta content="🔗" property="og:title"/>
-  <meta content="/embed.png" property="og:image"/>
-  <meta content="#000001" data-react-helmet="true" name="theme-color"/>
+  <meta content="🔗" property="og:title" />
+  <meta content="/embed.png" property="og:image" />
+  <meta content="#000001" data-react-helmet="true" name="theme-color" />
   <meta name="description" content="suda suda suda suda suda suda suda suda suda">
-  <meta name="keywords" content="suda, sudalol, hoodsense, zapped script, prime script, shhhh streamable, shhhh exploit, shhhh executor, shhhh external, shhhh.lol"/>
-  
+  <meta name="keywords"
+    content="suda, sudalol, hoodsense, zapped script, prime script, shhhh streamable, shhhh exploit, shhhh executor, shhhh external, shhhh.lol" />
+
+  <title>suda</title>
+
   <link rel="stylesheet" href="resources/main.css">
   <link rel="stylesheet" href="resources/hover.css">
-  <link rel="stylesheet" href="resources/all.css"/>
+  <link rel="stylesheet" href="resources/all.css" />
+  <link rel="stylesheet" href="resources/christmas.css">
   <link rel="icon" type="image/x-icon" href="resources/embed.png">
 </head>
+
 <body>
   <div id="skull-container">
-    <!-- dynamic black-and-white visualizer -->
     <canvas id="bgCanvas"></canvas>
   </div>
-  
+
   <input type="checkbox" autocomplete="off" id="overlay-toggle">
   <div class="overlay fullscreen">
     <div id="center">
       <label for="overlay-toggle" onclick="startEverything()">
-        <span class="no-hover" style="font-family:'Roboto Mono',monospace;font-size:30px;text-shadow:0 0 .40em gray;">[ tap ]</span>
-        <span class="hover"    style="font-family:'Roboto Mono',monospace;font-size:30px;text-shadow:0 0 .40em gray;">[ click ]</span>
+        <span class="no-hover" style="font-family:'Roboto Mono',monospace;font-size:30px;text-shadow:0 0 .40em gray;">[
+          tap ]</span>
+        <span class="hover" style="font-family:'Roboto Mono',monospace;font-size:30px;text-shadow:0 0 .40em gray;">[
+          click ]</span>
       </label>
     </div>
-  </div> 
-  
+  </div>
+
   <div id="notification" class="hide">
     <div class="content" id="notification-content"></div>
   </div>
-  
+
   <audio id="audio" preload="auto"></audio>
-  
-  <section class="fullscreen text-content">
-    <div id="center">
-      <h1 style="font-size:45px;font-family:'Work Sans',sans-serif;text-shadow:0 0 .15em gray;">suda</h1>                                                                                         
+
+  <section class="fullscreen text-content flex-center">
+    <div>
+      <h1 style="font-size:45px;font-family:'Work Sans',sans-serif;text-shadow:0 0 .15em gray;">suda</h1>
     </div>
-    <div id="center"><br><br><br>
-      <i class="fa-solid fa-cannabis"  style="font-size:9px;text-shadow:0 0 .15em gray;"></i>
-      <i class="fa-solid fa-cross"     style="font-size:9px;text-shadow:0 0 .15em gray;"></i>
-      <i class="fa-solid fa-tombstone" style="font-size:9px;text-shadow:0 0 .15em gray;"></i>
+    <div class="mt-large">
+      <i class="fa-solid fa-cannabis" style="font-size:9px;text-shadow:0 0 .15em gray; margin: 0 5px;"></i>
+      <i class="fa-solid fa-cross" style="font-size:9px;text-shadow:0 0 .15em gray; margin: 0 5px;"></i>
+      <i class="fa-solid fa-tombstone" style="font-size:9px;text-shadow:0 0 .15em gray; margin: 0 5px;"></i>
     </div>
-    <div id="center"><br><br><br><br><br>
+    <div class="mt-large">
       <span id="quote" style="font-size:15px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;"></span>
-    </div> 
-    <div id="center"><br><br><br><br><br><br><br><br>
-      <h1 id="audio-info" style="font-size:10px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;">Artist - Title</h1>
     </div>
-    <div id="center"><br><br><br><br><br><br><br><br><br><br><br>
-      <h1 id="audio-time" style="font-size:9px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;">*-–––––––––––––––––––––––––– 00:00</h1>
+    <div class="mt-xl">
+      <h1 id="audio-info" style="font-size:10px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;">Artist
+        - Title</h1>
+    </div>
+    <div>
+      <h1 id="audio-time" style="font-size:9px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;">
+        *-–––––––––––––––––––––––––– 00:00</h1>
     </div>
   </section>
-  <!--
-  <script>
-  // 🌌 Twinkling + drifting stars background
-  let canvas, ctx, stars = [];
-  const STAR_COUNT = 250;
 
-  function initStars() {
-    canvas = document.getElementById('bgCanvas');
-    ctx = canvas.getContext('2d');
-    resizeCanvas();
-
-    for (let i = 0; i < STAR_COUNT; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.5,
-        alpha: Math.random(),
-        delta: 0.005 + Math.random() * 0.02,
-        speedX: (Math.random() - 0.5) * 0.05,
-        speedY: (Math.random() - 0.5) * 0.05
-      });
-    }
-    animateStars();
-    window.addEventListener('resize', resizeCanvas);
-  }
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function animateStars() {
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    for (let s of stars) {
-      s.alpha += s.delta;
-      if (s.alpha <= 0 || s.alpha >= 1) s.delta = -s.delta;
-
-      s.x += s.speedX;
-      s.y += s.speedY;
-
-      // wrap stars around edges
-      if (s.x < 0) s.x = canvas.width;
-      if (s.x > canvas.width) s.x = 0;
-      if (s.y < 0) s.y = canvas.height;
-      if (s.y > canvas.height) s.y = 0;
-
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
-      ctx.fill();
-    }
-    requestAnimationFrame(animateStars);
-  }
-
-  function startEverything() {
-    if (!canvas) initStars();
-    const audio = document.getElementById('audio');
-    audio.volume = 0.3;
-    audio.play().catch(e => console.error("Audio failed:", e));
-  }
-
-  window.onload = initStars;
-</script>
--->
-<script>
-  // 🎄 Christmas-themed background: snow, candy canes, ornaments, and stars
-  let canvas, ctx, items = [];
-  const ITEM_COUNT = 200;
-  const IMAGES = {};
-
-  const ICONS = [
-    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f384.svg", type: "tree" },
-    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36c.svg", type: "candy" },
-    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f381.svg", type: "gift" },
-    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2b50.svg", type: "star" },
-    { src: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2744.svg", type: "snow" }
-  ];
-
-  // Preload all images before animation starts
-  function preloadImages() {
-    return Promise.all(ICONS.map(icon => new Promise(resolve => {
-      const img = new Image();
-      img.src = icon.src;
-      img.onload = () => { IMAGES[icon.type] = img; resolve(); };
-    })));
-  }
-
-  function initChristmas() {
-    canvas = document.getElementById('bgCanvas');
-    ctx = canvas.getContext('2d');
-    resizeCanvas();
-
-    // Create random festive items
-    for (let i = 0; i < ITEM_COUNT; i++) {
-      const type = ICONS[Math.floor(Math.random() * ICONS.length)].type;
-      items.push({
-        type,
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: 15 + Math.random() * 25,
-        speedY: 0.3 + Math.random() * 1.5,
-        speedX: (Math.random() - 0.5) * 0.5,
-        angle: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() - 0.5) * 0.02,
-        alpha: 0.8 + Math.random() * 0.2
-      });
-    }
-
-    animateChristmas();
-    window.addEventListener('resize', resizeCanvas);
-  }
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function animateChristmas() {
-    // 🎅 Warm crimson background
-    ctx.fillStyle = "rgba(150, 10, 45, 0.5)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    for (let i of items) {
-      i.y += i.speedY;
-      i.x += i.speedX;
-      i.angle += i.rotationSpeed;
-
-      if (i.y > canvas.height + 40) i.y = -40;
-      if (i.x > canvas.width + 40) i.x = -40;
-      if (i.x < -40) i.x = canvas.width + 40;
-
-      ctx.save();
-      ctx.translate(i.x, i.y);
-      ctx.rotate(i.angle);
-      ctx.globalAlpha = i.alpha;
-
-      const img = IMAGES[i.type];
-      if (img) ctx.drawImage(img, -i.size / 2, -i.size / 2, i.size, i.size);
-      else {
-        ctx.fillStyle = "white";
-        ctx.beginPath();
-        ctx.arc(0, 0, i.size / 3, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      ctx.restore();
-    }
-
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(animateChristmas);
-  }
-
-  async function startEverything() {
-    await preloadImages();
-    if (!canvas) initChristmas();
-    const audio = document.getElementById('audio');
-    audio.volume = 0.3;
-    audio.play().catch(e => console.error("Audio failed:", e));
-  }
-
-  window.onload = async () => {
-    await preloadImages();
-    initChristmas();
-  };
-</script>
-  <script src="resources/typed.min.js"></script>
-  <script src="resources/jquery.min.js"></script>
-  <script src="resources/main.js"></script>
-  <script src="resources/protect.js"></script>
-  <script src="resources/playlist.js"></script>
-  <script src="resources/notification.js"></script>
-  <script src="resources/duration.js"></script>
-  <script src="resources/hover.js"></script>
-  
-  <style>
-    /* full-screen black background & white bars */
-    #skull-container {
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:#000;
-      overflow:hidden;
-      z-index:-1;
-    }
-    #bgCanvas {
-      display:block;
-      width:100%;
-      height:100%;
-    }
-    .volume-control {
-      position:fixed;
-      top:20px; left:20px;
-      display:flex;
-      background:rgba(228, 10, 45, 0.5);
-      padding:10px;
-      border-radius:10px;
-      border:1px solid rgba(255, 255, 255, .5);
-      backdrop-filter:blur(5px);
-      z-index:100;
-    }
-    .volume-slider {
-      -webkit-appearance:none;
-      appearance:none;
-      width:120px; height:4px;
-      background:linear-gradient(90deg,rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.2) 100%);
-      outline:none; opacity:0.8;
-      transition:all .3s ease;
-      border-radius:2px;
-    }
-    .volume-slider:hover { opacity:1; transform:scale(1.02); }
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance:none;
-      appearance:none;
-      width:12px; height:12px;
-      background:#fff;
-      border-radius:50%;
-      cursor:pointer;
-      box-shadow:0 0 10px rgba(255,255,255,0.5);
-      transition:all .3s ease;
-    }
-    .volume-slider::-webkit-slider-thumb:hover {
-      box-shadow:0 0 15px rgba(255,255,255,0.8);
-      transform:scale(1.1);
-    }
-    .volume-slider:active::-webkit-slider-thumb {
-      transform:scale(0.95);
-    }
-  </style>
-  
   <div class="volume-control">
-    <input type="range" min="0" max="100" value="30"
-           class="volume-slider" id="volumeControl"
-           oninput="document.getElementById('audio').volume = this.value/100">
+    <input type="range" min="0" max="100" value="30" class="volume-slider" id="volumeControl"
+      oninput="document.getElementById('audio').volume = this.value/100">
   </div>
-  
-  <div id="center">
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <div id="center" class="mt-xl social-links social-container" style="position: fixed; top: 75%;">
     <a href="https://www.instagram.com/yo_its_suda/" class="hover-text" data-hover-text="@yo_its_suda">
       <i class="fa-brands fa-instagram" style="font-size:36px;text-shadow:0 0 .15em #8134AF;color:#DD2A7B;"></i>
     </a>
@@ -312,5 +89,17 @@
       <i class="fa-brands fa-discord" style="font-size:36px;text-shadow:0 0 .15em #7289DA;color:#7289DA;"></i>
     </a>
   </div>
+
+  <!-- Scripts -->
+  <script src="resources/typed.min.js"></script>
+  <script src="resources/jquery.min.js"></script>
+  <script src="resources/main.js"></script>
+  <script src="resources/protect.js"></script>
+  <script src="resources/playlist.js"></script>
+  <script src="resources/notification.js"></script>
+  <script src="resources/duration.js"></script>
+  <script src="resources/hover.js"></script>
+  <script src="resources/christmas.js"></script>
 </body>
+
 </html>
