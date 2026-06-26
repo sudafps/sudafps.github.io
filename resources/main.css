@@ -105,8 +105,7 @@ html {
 }
 
 .overlay {
-    background-color: rgba(228, 10, 45, 1);
-    ;
+    background-color: #111;
 }
 
 *::before,

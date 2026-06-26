@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta content="🔗" property="og:title" />
+  <meta content="ðŸ”—" property="og:title" />
   <meta content="/embed.png" property="og:image" />
   <meta content="#000001" data-react-helmet="true" name="theme-color" />
   <meta name="description" content="suda suda suda suda suda suda suda suda suda">
@@ -18,19 +18,18 @@
   <link rel="stylesheet" href="resources/main.css">
   <link rel="stylesheet" href="resources/hover.css">
   <link rel="stylesheet" href="resources/all.css" />
-  <link rel="stylesheet" href="resources/christmas.css">
   <link rel="icon" type="image/x-icon" href="resources/embed.png">
 </head>
 
 <body>
-  <div id="skull-container">
-    <canvas id="bgCanvas"></canvas>
-  </div>
+  <video class="bg-video fullscreen" id="video" loop muted playsinline preload="auto">
+    <source src="resources/background.mp4" type="video/mp4">
+  </video>
 
   <input type="checkbox" autocomplete="off" id="overlay-toggle">
   <div class="overlay fullscreen">
     <div id="center">
-      <label for="overlay-toggle" onclick="startEverything()">
+      <label for="overlay-toggle" onclick="mediaPlay()">
         <span class="no-hover" style="font-family:'Roboto Mono',monospace;font-size:30px;text-shadow:0 0 .40em gray;">[
           tap ]</span>
         <span class="hover" style="font-family:'Roboto Mono',monospace;font-size:30px;text-shadow:0 0 .40em gray;">[
@@ -63,7 +62,7 @@
     </div>
     <div>
       <h1 id="audio-time" style="font-size:9px;font-family:'Roboto Mono',monospace;text-shadow:0 0 .15em gray;">
-        *-–––––––––––––––––––––––––– 00:00</h1>
+        *-â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“â€“ 00:00</h1>
     </div>
   </section>
 
@@ -85,7 +84,7 @@
     <a href="https://www.twitch.tv/sudafps2" class="hover-text" data-hover-text="@sudafps2">
       <i class="fa-brands fa-twitch" style="font-size:36px;text-shadow:0 0 .15em #6441a5;color:#6441a5;"></i>
     </a>
-    <a class="hover-text" data-hover-text="@sudafps2">
+    <a class="hover-text" data-hover-text="@sudaaim">
       <i class="fa-brands fa-discord" style="font-size:36px;text-shadow:0 0 .15em #7289DA;color:#7289DA;"></i>
     </a>
   </div>
@@ -99,7 +98,6 @@
   <script src="resources/notification.js"></script>
   <script src="resources/duration.js"></script>
   <script src="resources/hover.js"></script>
-  <script src="resources/christmas.js"></script>
 </body>
 
 </html>
